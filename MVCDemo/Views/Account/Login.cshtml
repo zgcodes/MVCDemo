@@ -1,0 +1,34 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>登录</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/signin.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="LoginState">
+        @ViewBag.LoginState
+    </div>
+
+    <div class="container">
+        @using (Html.BeginForm("login", "Account", FormMethod.Post, new { @class = "form-signin" }))
+        {
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input type="email" class="form-control" id="inputEmail3" name="inputEmail3" placeholder="Email">
+            <input type="password" class="form-control" id="inputPassword3" name="inputPassword3" placeholder="Password">
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me">
+                Remember me
+            </label>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        }
+
+    </div>
+</body>
+</html>
