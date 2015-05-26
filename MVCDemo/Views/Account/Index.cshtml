@@ -1,26 +1,37 @@
-﻿@model IEnumerable<MVCDemo.Models.SysUser>
+﻿@*@model IEnumerable<MVCDemo.Models.SysUser>*@
+@model PagedList.IPagedList<MVCDemo.Models.SysUser>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<!DOCTYPE html>
+<h1 class="page-header">MVCDemo</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div>
-       <p>@Html.ActionLink("新增","Create")</p> 
-        <table>
+<p class="sub-header">@Html.ActionLink("添加", "Create")</p>
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <p>
+        查询用户名:@Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <th>用户名
+                <th>
+                    @Html.ActionLink("UserName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.currentFilter })
                 </th>
-                <th>邮箱
+                <th>Email
                 </th>
-                <th>操作</th>
+                <th></th>
             </tr>
+        </thead>
+
+        <tbody>
             @foreach (var item in Model)
             {
                 <tr>
@@ -36,12 +47,17 @@
                     <td>
                         @Html.ActionLink("编辑", "Edit", new { id = item.ID });
                     </td>
-                     <td>
+                    <td>
                         @Html.ActionLink("删除", "Delete", new { id = item.ID });
                     </td>
                 </tr>
             }
-        </table>
-    </div>
-</body>
-</html>
+        </tbody>
+
+    </table>
+    <br />
+     <br/>
+    Page @(Model.PageCount < Model.PageNumber? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page,sortOrder=ViewBag.CurrentSort,currentFilter=ViewBag.CurrentFilter}))
+@*PageCount总页数，PageNumber当前页数（从0开始），如果PageCount=0，就是没数据，显示0 for 0 *@
+</div>
