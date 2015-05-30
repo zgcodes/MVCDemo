@@ -9,12 +9,14 @@ namespace MVCDemo.DAL
 {
     public class AccountInitializer : DropCreateDatabaseIfModelChanges<AccountContext>
     {
+        //迁移模式：1、每次执行update-databse指令时都会执行Seed方法（好像没用）
+        //非迁移模式：2、运行时，如果数据模型变化，会执行Seed方法
         protected override void Seed(AccountContext context)
         {
             var sysUsers = new List<SysUser>
             {
-                new SysUser{UserName="Tom",Email="Tom@qq.com",Password="1"},
-                new SysUser{UserName="Jerry",Email="Jerry@qq.com",Password="2"}
+                new SysUser{UserName="Tom1",Email="Tom@qq.com",Password="1"},
+                new SysUser{UserName="Jerry1",Email="Jerry@qq.com",Password="2"}
             };
             sysUsers.ForEach(s => context.SysUsers.Add(s));
             context.SaveChanges();

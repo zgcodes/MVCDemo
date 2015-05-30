@@ -16,11 +16,11 @@
 
         @using (Html.BeginForm())
         {
-
+            
             @Html.HiddenFor(model => model.ID)
 
             <div>
-
+                <input type="hidden" value="@Model.CreateDate" name="CreateDate"/>
                 @Html.LabelFor(model => model.UserName)
 
                 @Html.EditorFor(model => model.UserName)

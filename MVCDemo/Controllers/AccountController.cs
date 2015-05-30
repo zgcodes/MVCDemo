@@ -75,8 +75,13 @@ namespace MVCDemo.Controllers
         [HttpPost]
         public ActionResult Create(SysUser sysUser)
         {
-            _sysUserRepository.Add(sysUser);
-            return RedirectToAction("Index");
+            sysUser.CreateDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                _sysUserRepository.Add(sysUser);
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
         #endregion

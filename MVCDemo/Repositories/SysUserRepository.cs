@@ -3,6 +3,7 @@ using MVCDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -58,6 +59,14 @@ namespace MVCDemo.Repositories
         public SysUser Select(int id)
         {
             SysUser sysUser = db.SysUsers.Find(id);
+            //var sysUser1 = from u in db.SysUsers//linq表达式
+            //               where u.ID == id
+            //               select u;
+            //string query = "select * from SysUser where ID = @id";//使用sql
+            //SqlParameter[] paras = new SqlParameter[]{
+            //new SqlParameter("@id",id)
+            //};
+            //SysUser sysUser = db.SysUsers.SqlQuery(query, paras).SingleOrDefault();
             return sysUser;
 
         }
